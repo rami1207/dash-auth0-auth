@@ -119,8 +119,10 @@ class Auth0Auth(Auth):
             if resp.status_code == 200:
                 user_data = resp.json()
                 r = flask.redirect(flask.session['REDIRECT_URL'])
+                # rami changes
                 r.set_cookie(COOKIE_AUTH_USER_NAME, user_data['sub'], max_age=COOKIE_EXPIRY)
                 r.set_cookie(COOKIE_AUTH_ACCESS_TOKEN, token['access_token'], max_age=COOKIE_EXPIRY)
+                # rami changes
                 flask.session[user_data['sub']] = token['access_token']
                 return r
 
