@@ -54,7 +54,10 @@ class Auth0Auth(Auth):
 
     def login_request(self):
         
-        redirect_uri = urljoin(flask.request.base_url, AUTH_REDIRECT_URI) 
+        redirect_uri = urljoin(flask.request.base_url, AUTH_REDIRECT_URI)
+        print("#"*80)
+        print(f"redirect_uri={redirect_uri}")
+        print("#" * 80)
 
         session = OAuth2Session(
             CLIENT_ID,
