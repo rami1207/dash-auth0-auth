@@ -55,9 +55,6 @@ class Auth0Auth(Auth):
     def login_request(self):
         
         redirect_uri = urljoin(flask.request.base_url, AUTH_REDIRECT_URI).replace('http://','https://')
-        print("#"*80)
-        print(f"redirect_uri={redirect_uri}")
-        print("#" * 80)
 
         session = OAuth2Session(
             CLIENT_ID,
@@ -71,7 +68,7 @@ class Auth0Auth(Auth):
             audience=os.environ.get('AUTH0_API_AUDIENCE')
         )
 
-        flask.session['REDIRECT_URL'] = flask.request.url
+        flask.session['REDIRECT_URL'] = flask.request.url.replace('http://', 'https://')
         flask.session[AUTH_STATE_KEY] = state
         flask.session.permanent = False
 
