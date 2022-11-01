@@ -54,7 +54,7 @@ class Auth0Auth(Auth):
 
     def login_request(self):
         
-        redirect_uri = urljoin(flask.request.base_url, AUTH_REDIRECT_URI)
+        redirect_uri = urljoin(flask.request.base_url, AUTH_REDIRECT_URI).replace('http://','https://')
         print("#"*80)
         print(f"redirect_uri={redirect_uri}")
         print("#" * 80)
@@ -63,7 +63,7 @@ class Auth0Auth(Auth):
             CLIENT_ID,
             CLIENT_SECRET,
             scope=os.environ.get('AUTH0_AUTH_SCOPE'),
-            redirect_uri=redirect_uri            
+            redirect_uri=redirect_uri.replace('http://','https://')
         )
         
         uri, state = session.create_authorization_url(
@@ -137,11 +137,11 @@ class Auth0Auth(Auth):
             return OAuth2Session(
                 CLIENT_ID,
                 state=state,
-                redirect_uri=urljoin(flask.request.base_url, AUTH_REDIRECT_URI)
+                redirect_uri=urljoin(flask.request.base_url, AUTH_REDIRECT_URI).replace('http://','https://')
             )
         return OAuth2Session(
             CLIENT_ID,
-            redirect_uri=urljoin(flask.request.base_url, AUTH_REDIRECT_URI),
+            redirect_uri=urljoin(flask.request.base_url, AUTH_REDIRECT_URI).replace('http://','https://'),
         )
 
     @staticmethod
